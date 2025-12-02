@@ -1,6 +1,7 @@
 name: Run Postman Tests
 
 on:
+workflow_dispatch:
   push:
     branches:
       - main
