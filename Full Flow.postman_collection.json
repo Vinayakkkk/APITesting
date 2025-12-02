@@ -1,0 +1,212 @@
+{
+	"info": {
+		"_postman_id": "c951e32f-96c3-4efa-a735-9743d06e5c1f",
+		"name": "Full Flow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44942469",
+		"_collection_link": "https://vinayak-7517101.postman.co/workspace/8ee1d853-dfa1-4532-8399-e0cc999d6f10/collection/44942469-c951e32f-96c3-4efa-a735-9743d06e5c1f?action=share&source=collection_link&creator=44942469"
+	},
+	"item": [
+		{
+			"name": "Auth Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"Access_Token\",pm.response.json().access_token)"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"client_id\":\"test-client-id\",\"client_secret\":\"test-client-secret\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/oauth/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"oauth",
+						"token"
+					]
+				},
+				"description": "Generated from cURL: curl -X POST http://localhost:3000/oauth/token \\\r\n  -H \"Content-Type: application/json\" \\\r\n  -d '{\"client_id\":\"test-client-id\",\"client_secret\":\"test-client-secret\"}'\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Users",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{Access_Token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"name\": \"John Doe\",\r\n        \"email\": \"john@example.com\"\r\n      }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					]
+				},
+				"description": "Generated from cURL: curl -X POST http://localhost:3000/users \\\r\n  -H \"Content-Type: application/json\" \\\r\n  -H \"Authorization: Bearer $TOKEN\" \\\r\n  -d '{\r\n        \"name\": \"John Doe\",\r\n        \"email\": \"john@example.com\"\r\n      }'\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Users",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{Access_Token}}"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Using UserID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{Access_Token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/users/{{ID}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"{{ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update The User",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{Access_Token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"name\": \"Jane Doe\",\r\n        \"email\": \"jane@example.com\"\r\n      }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/users/{{ID}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"{{ID}}"
+					]
+				},
+				"description": "Generated from cURL: curl -X PUT http://localhost:3000/users/$USER_ID \\\r\n  -H \"Content-Type: application/json\" \\\r\n  -H \"Authorization: Bearer $TOKEN\" \\\r\n  -d '{\r\n        \"name\": \"Jane Doe\",\r\n        \"email\": \"jane@example.com\"\r\n      }'\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{Access_Token}}"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/users/{{ID}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"{{ID}}"
+					]
+				},
+				"description": "Generated from cURL: curl -X DELETE http://localhost:3000/users/$USER_ID \\\r\n  -H \"Authorization: Bearer $TOKEN\"\r\n"
+			},
+			"response": []
+		}
+	]
+}
