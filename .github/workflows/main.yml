@@ -23,11 +23,10 @@ jobs:
       - name: Install Newman
         run: npm install -g newman newman-reporter-html
 
+     # 4️⃣ Run Postman collection
       - name: Run Postman Collection
         run: |
-          newman run "Full Flow.postman_collection.json" \
-          -e "Test.postman_environment.json" \
-          -r cli,html
+          newman run Full Flow.postman_collection.json -e Test.postman_environment.json r cli,html
 
       - name: Upload HTML Report
         uses: actions/upload-artifact@v4
